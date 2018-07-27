@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ### R code for Figures in Mogil et al. "Genetic architecture of gene expression traits across diverse populations" <https://doi.org/10.1101/245761>
-- Revision 1, submitted June 1, 2018
+- Final Formatting for PLOS Genetics
 - S2 Figure
 
 ```{r}
@@ -29,13 +29,13 @@ eqtl <- dplyr::filter(eqtl,Nk != 50)
 eqtl <- mutate(eqtl,pc=factor(pc,labels=c('0 PCs','3 PCs','5 PCs','10 PCs')))
 fig <- ggplot(eqtl, aes(x=Nk,y=FDR_0.05,col=pop)) + geom_line() + geom_point() + facet_wrap(~pc,nrow=1) +
   scale_y_continuous(labels = function(x) format(x, scientific = TRUE)) +
-  scale_color_viridis(discrete = TRUE) + theme_bw(14) + labs(x="Number of Peer Factors",y="Number of eQTLs\n(FDR < 0.05)",col="Population")
+  scale_color_viridis(discrete = TRUE) + theme_bw(12) + labs(x="Number of Peer Factors",y="Number of eQTLs\n(FDR < 0.05)",col="Population")
 print(fig)
 ```
 
 
 ```{r}
-tiff("S2_Fig.tiff", width = 10, height = 3, units = 'in', res = 300, compression = 'lzw')
+tiff("S2_Fig.tiff", width = 7.5, height = 2.25, units = 'in', res = 300, compression = 'lzw')
 fig
 dev.off()
 ```

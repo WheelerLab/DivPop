@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ### R code for Figures in Mogil et al. "Genetic architecture of gene expression traits across diverse populations" <https://doi.org/10.1101/245761>
-- Revision 1, submitted June 1, 2018
+- Final Formatting for PLOS Genetics
 - S6 Figure
 
 ```{r}
@@ -43,13 +43,13 @@ his <- mutate(his, PF0=ifelse(PF0<0,0,PF0), PF10=ifelse(PF10<0,0,PF10), PF20=ife
 
 all <- rbind(afa,cau,his)
 
-a <- ggplot(all,aes(x=PF10,y=PF0)) + geom_point(shape=1) + facet_wrap(~pop) + theme_bw(14) + labs(x=expression(paste(R^2,' with 10 PEER Factors')),y=expression(paste(R^2,' with 0 PEER Factors'))) +
+a <- ggplot(all,aes(x=PF10,y=PF0)) + geom_point(shape=1) + facet_wrap(~pop) + theme_bw(12) + labs(x=expression(paste(R^2,' with 10 PEER Factors')),y=expression(paste(R^2,' with 0 PEER Factors'))) +
   geom_abline(slope=1,intercept=0,col='blue')
 
-b <- ggplot(all,aes(x=PF10,y=PF20)) + geom_point(shape=1) + facet_wrap(~pop) + theme_bw(14) +labs(x=expression(paste(R^2,' with 10 PEER Factors')),y=expression(paste(R^2,' with 20 PEER Factors'))) +
+b <- ggplot(all,aes(x=PF10,y=PF20)) + geom_point(shape=1) + facet_wrap(~pop) + theme_bw(12) +labs(x=expression(paste(R^2,' with 10 PEER Factors')),y=expression(paste(R^2,' with 20 PEER Factors'))) +
   geom_abline(slope=1,intercept=0,col='blue')
 
-c <- ggplot(all,aes(x=PF10,y=PF30)) + geom_point(shape=1) + facet_wrap(~pop) + theme_bw(14) +labs(x=expression(paste(R^2,' with 10 PEER Factors')),y=expression(paste(R^2,' with 30 PEER Factors'))) +
+c <- ggplot(all,aes(x=PF10,y=PF30)) + geom_point(shape=1) + facet_wrap(~pop) + theme_bw(12) +labs(x=expression(paste(R^2,' with 10 PEER Factors')),y=expression(paste(R^2,' with 30 PEER Factors'))) +
   geom_abline(slope=1,intercept=0,col='blue')
 
 grid.arrange(a,b,c)
@@ -57,7 +57,7 @@ grid.arrange(a,b,c)
 
 
 ```{r}
-tiff("S6_Fig.tiff", width = 8, height = 9, units = 'in', res = 300, compression = 'lzw')
+tiff("S6_Fig.tiff", width = 7.5, height = 8.44, units = 'in', res = 300, compression = 'lzw')
 grid.arrange(a,b,c)
 dev.off()
 ```

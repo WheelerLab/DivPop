@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ### R code for Figures in Mogil et al. "Genetic architecture of gene expression traits across diverse populations" <https://doi.org/10.1101/245761>
-- Revision 1, submitted June 1, 2018
+- Final Formatting for PLOS Genetics
 - S4 Figure
 
 ```{r}
@@ -38,11 +38,11 @@ res <- mutate(res,pop=ifelse(pop=="CAU-HIS","HIS-CAU",pop))
 
 sa <- ggplot(res, aes(x=log10(rG.se),y=min.h2,col=max.h2)) + geom_point() +
   facet_wrap(~pop)  + coord_cartesian(xlim=c(-2,6)) + 
-  theme_bw(14) +  labs(col=expression(paste("max ",h^2)),x=expression(paste(log["10"], " SE")),y=expression(paste("min ", h^2)),title="A")
+  theme_bw(12) +  labs(col=expression(paste("max ",h^2)),x=expression(paste(log["10"], " SE")),y=expression(paste("min ", h^2)),title="A")
 
 sb <- ggplot(res, aes(y=rG,x=log10(rG.se))) + stat_density_2d(aes(fill = ..level..), geom = "polygon") + scale_color_viridis() +
   coord_cartesian(ylim=c(-1,1), xlim=c(-2,6)) + facet_wrap(~pop) + labs(x=expression(paste(log["10"], " SE")),title="B") +
-  theme_bw(14) 
+  theme_bw(12) 
 
 res <- mutate(res,norm.pop1.h2=pop1.h2/pop1.snpcount,norm.pop2.h2=pop2.h2/pop2.snpcount)
 
@@ -68,7 +68,7 @@ colnames(normtoplot) <- c("pop", "h2", "mean_rG")
 
 sc <- ggplot(normtoplot, aes(x=h2,y=mean_rG,col=pop)) + geom_smooth() + scale_color_viridis(discrete=TRUE) +
   labs(x=expression(paste("normalized ", h^2, " threshold in AFA")),y="mean rG",col="pop pair",title="C") +
-  theme_bw(14)
+  theme_bw(12)
 rm('normtoplot')
 
 grid.arrange(sa,sb,sc,nrow=3)
@@ -76,7 +76,7 @@ grid.arrange(sa,sb,sc,nrow=3)
 
 
 ```{r}
-tiff("S4_Fig.tiff", width = 8, height = 10, units = 'in', res = 300, compression = 'lzw')
+tiff("S4_Fig.tiff", width = 7, height = 8.75, units = 'in', res = 300, compression = 'lzw')
 grid.arrange(sa,sb,sc,nrow=3)
 dev.off()
 ```

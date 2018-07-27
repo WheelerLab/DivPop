@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ### R code for Figures in Mogil et al. "Genetic architecture of gene expression traits across diverse populations" <https://doi.org/10.1101/245761>
-- Revision 1, submitted June 1, 2018
+- Final Formatting for PLOS Genetics
 - S5 Figure 
 
 ```{r}
@@ -60,27 +60,18 @@ summary(lm(hh50~pve50,all))
 summary(lm(hh50~pve50,all))$coefficients
 cor.test(all$hh50,all$pve50)
 cor.test(all$hh50,all$pve50,method='s')
-#make plot like this for elastic net alpha comparison? LASSO vs. EN (colored by alpha=0.5 or 0.05)
-# ggplot(all,aes(x=pve50,y=hh50)) + geom_point() + facet_wrap(~pop) + geom_abline(slope=1,intercept = 0,color='blue') + theme_bw(14) +
-#   xlab('BSLMM PVE') + ylab('BVSR PVE')
-# ggplot(all,aes(x=pve50,y=hh50,color=pge50)) + geom_point() + facet_wrap(~pop) + geom_abline(slope=1,intercept = 0)
-# ggplot(all,aes(x=pve50,y=hh50,color=snp50)) + geom_point() + facet_wrap(~pop) + geom_abline(slope=1,intercept = 0) 
-# ggplot(all,aes(x=pve50,y=hh50,color=n_gamma50)) + geom_point() + facet_wrap(~pop) + geom_abline(slope=1,intercept = 0)
 
 cor.test(all$snp50,all$n_gamma50)
 cor.test(all$snp50,all$n_gamma50,method='s')
-# ggplot(all,aes(x=n_gamma50, y=snp50)) + geom_density_2d() + facet_wrap(~pop)
-# ggplot(all,aes(x=n_gamma50, y=snp50, color=hh50)) + geom_point() + facet_wrap(~pop)
+
 
 data <- all %>% mutate(position=1:length(pve50),`medianSNPs<=10`=n_gamma50<=10,LCS=factor(pge025<=0.01,labels=c('> 0.01','<= 0.01')))
-# ggplot(data,aes(x=pve50,y=pge50,ymin=pge025,ymax=pge975,col=LCS)) + geom_pointrange(col='gray') + geom_point() + theme_bw(12) + xlab("PVE") + ylab("PGE") + theme(legend.position = c(1,0),legend.justification = c(1,0)) + facet_wrap(~pop)
+
 
 ngenes <- dim(all)[1]/3
 sorted <- dplyr::arrange(all,pop,pve50) %>% mutate(order=rep(c(1:ngenes),3))
-# ggplot(sorted,aes(x=order,y=pve50,ymin=pve025,ymax=pve975)) + geom_pointrange(col='gray') + geom_point() + facet_wrap(~pop)
 
 sorted <- dplyr::arrange(all,pop,hh50) %>% mutate(order=rep(c(1:ngenes),3))
-# ggplot(sorted,aes(x=order,y=hh50,ymin=hh025,ymax=hh975)) + geom_pointrange(col='gray') + geom_point() + facet_wrap(~pop)
 ```
 
 ### BSLMM Sup Fig
@@ -108,13 +99,13 @@ mega <- left_join(mega,r2_res,by=c('gene'='GENE','pop'))
 mega <- mega[complete.cases(mega),]
 
 ###need to make h2 and R2 long to facet
-b <- ggplot(mega,aes(x=pve50,y=h2,col=R2)) + geom_point() + facet_wrap(~pop) + geom_abline(slope=1,intercept = 0,color='blue') + theme_bw(14) + labs(x='BSLMM PVE',y=expression(paste('GCTA ', h^2)),col=expression(R^2),title='B') + theme(legend.position = c(0.995,0.005),legend.justification = c(1,0),legend.title = element_text(size=10),legend.text = element_text(size=10),legend.key.size = unit(0.3, "cm"),plot.margin=unit(c(0.1,0.2,0.1,0.2), "cm")) + scale_color_viridis()
+b <- ggplot(mega,aes(x=pve50,y=h2,col=R2)) + geom_point() + facet_wrap(~pop) + geom_abline(slope=1,intercept = 0,color='blue') + theme_bw(12) + labs(x='BSLMM PVE',y=expression(paste('GCTA ', h^2)),col=expression(R^2),title='B') + theme(legend.position = c(0.995,0.005),legend.justification = c(1,0),legend.title = element_text(size=8),legend.text = element_text(size=8),legend.key.size = unit(0.3, "cm"),plot.margin=unit(c(0.1,0.2,0.1,0.2), "cm")) + scale_color_viridis()
 
 #make plot like this for elastic net alpha comparison? LASSO vs. EN (colored by alpha=0.5 or 0.05)
-c <- ggplot(mega,aes(x=pve50,y=hh50,col=R2)) + geom_point() + facet_wrap(~pop) + geom_abline(slope=1,intercept = 0,color='blue') + theme_bw(14) + labs(x='BSLMM PVE',y='BVSR PVE',col=expression(R^2),title='C') + theme(legend.position = c(0.995,0.005),legend.justification = c(1,0),legend.title = element_text(size=10),legend.text = element_text(size=10),legend.key.size = unit(0.3, "cm"),plot.margin=unit(c(0.1,0.2,0.1,0.2), "cm")) + 
+c <- ggplot(mega,aes(x=pve50,y=hh50,col=R2)) + geom_point() + facet_wrap(~pop) + geom_abline(slope=1,intercept = 0,color='blue') + theme_bw(12) + labs(x='BSLMM PVE',y='BVSR PVE',col=expression(R^2),title='C') + theme(legend.position = c(0.995,0.005),legend.justification = c(1,0),legend.title = element_text(size=8),legend.text = element_text(size=8),legend.key.size = unit(0.3, "cm"),plot.margin=unit(c(0.1,0.2,0.1,0.2), "cm")) + 
   scale_color_viridis()
 
-sfigA <- ggplot(data,aes(x=pve50,y=pge50,ymin=pge025,ymax=pge975,col=LCS)) + geom_pointrange(col='gray') + geom_point(shape=1) + theme_bw(14) + xlab("BLSMM PVE") + ylab("BSLMM PGE") + theme(legend.position = c(0.995,0.005),legend.justification = c(1,0),legend.title = element_text(size=10),legend.text = element_text(size=10),legend.key.size = unit(0.3, "cm"),plot.margin=unit(c(0.1,0.2,0.1,0.2), "cm")) + facet_wrap(~pop) + ggtitle('A') +
+sfigA <- ggplot(data,aes(x=pve50,y=pge50,ymin=pge025,ymax=pge975,col=LCS)) + geom_pointrange(col='gray') + geom_point(shape=1) + theme_bw(12) + xlab("BLSMM PVE") + ylab("BSLMM PGE") + theme(legend.position = c(0.995,0.005),legend.justification = c(1,0),legend.title = element_text(size=8),legend.text = element_text(size=8),legend.key.size = unit(0.3, "cm"),plot.margin=unit(c(0.1,0.2,0.1,0.2), "cm")) + facet_wrap(~pop) + ggtitle('A') +
   scale_color_viridis(discrete=TRUE)
 
 cor(mega[,-1:-2],method='s')
@@ -196,12 +187,12 @@ ba2 <- left_join(alpha1,alpha05,by=c('gene_id','pop')) %>% mutate(diffR2=test_R2
 ba <- rbind(ba1,ba2) %>% mutate(alpha = factor(alpha.y,levels=c('0.05','0.5')),gt0=diffR2>0) 
 fig3a <- ggplot(ba, aes(x=test_R2_avg_1,y=diffR2,col=alpha)) + geom_point(shape=1) + 
   scale_color_viridis(discrete=TRUE) + labs(x=expression(paste('lasso ',R^2)),y=expression(paste(R^2, ' difference (lasso - ',alpha,')')),col=expression(alpha),title='A') +  geom_hline(yintercept = 0,col='darkgray') +  coord_cartesian(ylim=c(-0.6,0.6)) +
-  facet_wrap(~pop) + theme_bw(14) + theme(legend.justification=c(0,0), legend.position=c(0.9,0.01),legend.title = element_text(size=10),legend.text = element_text(size=10),legend.key.size = unit(0.4, "cm"))
+  facet_wrap(~pop) + theme_bw(12) + theme(legend.justification=c(0,0), legend.position=c(0.9,0.01),legend.title = element_text(size=8),legend.text = element_text(size=8),legend.key.size = unit(0.4, "cm"))
 
 fig3b <- ggplot(ba, aes(x=test_R2_avg_1,y=diffR2,col=alpha)) + geom_density_2d() +
   scale_color_viridis(discrete=TRUE) + labs(x=expression(paste('lasso ',R^2, ' ZOOM')),y=expression(paste(R^2, ' difference (lasso - ',alpha,')')),col=expression(alpha),title='B') + 
   geom_hline(yintercept = 0,col='darkgray') + coord_cartesian(ylim=c(-0.08,0.08)) +
-  facet_wrap(~pop) + theme_bw(14) + theme(legend.justification=c(0,0), legend.position=c(0.9,0.01),legend.title = element_text(size=10),legend.text = element_text(size=10),legend.key.size = unit(0.4, "cm"))
+  facet_wrap(~pop) + theme_bw(12) + theme(legend.justification=c(0,0), legend.position=c(0.9,0.01),legend.title = element_text(size=8),legend.text = element_text(size=8),legend.key.size = unit(0.4, "cm"))
 
 #make table of diffR2 > 0 counts/percents
 for(p in c('AFA','CAU','HIS')){
@@ -255,12 +246,12 @@ bslmmba <- rbind(bslmmba1,bslmmba2) %>% mutate(model=factor(model,levels=c('LMM'
 sfigB_bslmm <- ggplot(bslmmba,aes(x=pve50,y=diffPVE,col=model)) + geom_point(shape=1) + facet_wrap(~pop) +
 scale_color_viridis(discrete=TRUE) + labs(x='BSLMM PVE',y='PVE difference (BSLMM - model)',title='B') +
   geom_hline(yintercept = 0,col='darkgray') +  coord_cartesian(ylim=c(-0.65,0.65)) +
-  theme_bw(14) + theme(legend.justification=c(0,0), legend.position=c(0.88,0.05),legend.title = element_text(size=10),legend.text = element_text(size=10),legend.key.size = unit(0.3, "cm"),legend.background = element_rect(fill="white",size=0.5, linetype="solid", colour ="black"))
+  theme_bw(12) + theme(legend.justification=c(0,0), legend.position=c(0.9,0.05),legend.title = element_text(size=8),legend.text = element_text(size=8),legend.key.size = unit(0.3, "cm"),legend.background = element_rect(fill="white",size=0.5, linetype="solid", colour ="black"))
 
 sfigC_bslmm <- ggplot(bslmmba,aes(x=pve50,y=diffPVE,col=model)) + geom_density_2d() + facet_wrap(~pop) +
 scale_color_viridis(discrete=TRUE) + labs(x='BSLMM PVE',y='PVE difference (BSLMM - model)',title='C') +
   geom_hline(yintercept = 0,col='darkgray') + coord_cartesian(ylim=c(-0.06,0.06)) +
-  theme_bw(14) + theme(legend.justification=c(0,0), legend.position=c(0.88,0.05),legend.title = element_text(size=10),legend.text = element_text(size=10),legend.key.size = unit(0.3, "cm"),legend.background = element_rect(fill="white",size=0.5, linetype="solid", colour ="black"))
+  theme_bw(12) + theme(legend.justification=c(0,0), legend.position=c(0.9,0.05),legend.title = element_text(size=8),legend.text = element_text(size=8),legend.key.size = unit(0.3, "cm"),legend.background = element_rect(fill="white",size=0.5, linetype="solid", colour ="black"))
 
 #make table of diffPVE > 0 counts/percents
 for(p in c('AFA','CAU','HIS')){
@@ -293,7 +284,7 @@ grid.arrange(sfigA, sfigB_bslmm, sfigC_bslmm, nrow=3)
 
 
 ```{r}
-tiff("S5_Fig.tiff", width = 8, height = 10, units = 'in', res = 300, compression = 'lzw')
+tiff("S5_Fig.tiff", width = 7, height = 8.75, units = 'in', res = 300, compression = 'lzw')
 grid.arrange(sfigA, sfigB_bslmm, sfigC_bslmm, nrow=3)
 dev.off()
 ```

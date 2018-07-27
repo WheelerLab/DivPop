@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ### R code for Figures in Mogil et al. "Genetic architecture of gene expression traits across diverse populations" <https://doi.org/10.1101/245761>
-- Revision 1, submitted June 1, 2018
+- Final Formatting for PLOS Genetics
 - S3 Figure
 
 ```{r}
@@ -29,14 +29,14 @@ suballpi1_g <- dplyr::filter(allpi1_g,rep_pop!='GEUYRI0' & rep_pop!='GEUYRI10' &
                              
 fix_allpi1_g <- mutate(suballpi1_g,disc_pop=factor(disc_pop,levels=c('AFA0','AFA10','AFA20','AFA30','CAU0','CAU10','CAU20','CAU30','HIS0','HIS10','HIS20','HIS30','AFHI0','AFHI10','AFHI20','AFHI30','ALL0','ALL10','ALL20','ALL30')),rep_pop=factor(rep_pop,levels=c('AFA0','AFA10','AFA20','AFA30','CAU0','CAU10','CAU20','CAU30','HIS0','HIS10','HIS20','HIS30','FHS0','FHS10','FHS20','FHS30','GEU0','GEU10','GEU20','GEU30','MXL0','MXL10','MXL20','MXL30','YRI0','YRI10','YRI20','YRI30')))
 fig <- ggplot(fix_allpi1_g, aes(x=rep_pop,y=disc_pop,fill=pi1)) + geom_raster() + xlab("Replication Population") + 
-  ylab("Discovery Population") + theme_bw(14)  +
+  ylab("Discovery Population") + theme_bw(12)  +
   scale_fill_viridis(name=expression(pi[1])) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
 print(fig)
 ```
 
 
 ```{r}
-tiff("S3_Fig.tiff", width = 8, height = 4, units = 'in', res = 300, compression = 'lzw')
+tiff("S3_Fig.tiff", width = 7.5, height = 3.75, units = 'in', res = 300, compression = 'lzw')
 fig
 dev.off()
 ```
