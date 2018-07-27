@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ### R code for Figures in Mogil et al. "Genetic architecture of gene expression traits across diverse populations" <https://doi.org/10.1101/245761>
-- Revision 1, submitted June 1, 2018
+- Final Formatting for PLOS Genetics
 - Figure 6
 
 ```{r}
@@ -39,7 +39,7 @@ resg <- rbind(afa,cau,his,all)
 resg <- mutate(resg,pop=factor(pop, levels=c("ALL","AFA","CAU","HIS")))
 
 fig <- ggplot(resg,aes(x=exp,y=obs,col=pop)) + geom_point(size=0.6) + scale_color_viridis(discrete = TRUE) +
-  theme_bw(14) + geom_abline(intercept = 0, slope = 1) + labs(x=expression(paste('Expected ',-log[10],' ',P)),
+  theme_bw(12) + geom_abline(intercept = 0, slope = 1) + labs(x=expression(paste('Expected ',-log[10],' ',P)),
       y=expression(paste('Observed ',-log[10],' ',P)),col="Population")+
   theme(legend.justification=c(0,1), legend.position=c(0.005,0.995))
 print(fig)
@@ -47,7 +47,7 @@ print(fig)
 
 
 ```{r}
-tiff("Fig6.tiff", width = 3.5, height = 3, units = 'in', res = 300, compression = 'lzw')
+tiff("Fig6.tiff", width = 9.5, height = 8.1, units = 'cm', res = 300, compression = 'lzw')
 fig
 dev.off()
 ```

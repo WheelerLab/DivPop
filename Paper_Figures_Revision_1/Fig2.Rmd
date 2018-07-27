@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ### R code for Figures in Mogil et al. "Genetic architecture of gene expression traits across diverse populations" <https://doi.org/10.1101/245761>
-- Revision 1, submitted June 1, 2018
+- Final Formatting for PLOS Genetics
 - Figure 2
 - Table 2
 
@@ -43,7 +43,7 @@ sims <- mutate(sims,data=ifelse(data=='obs CAU-HIS','obs HIS-CAU',data))
 sims <- mutate(sims,data=ifelse(data=='sim CAU-HIS','sim HIS-CAU',data))
 
 c <- ggplot(sims,aes(x=data,y=rG)) + geom_violin() + stat_summary(fun.y=mean, geom="point", color="blue", size=3) +
-        labs(x="",title="C") + theme_bw(14)
+        labs(x="",title="C") + theme_bw(12)
 
 simsdt <- data.table(sims)
 simsdt[,list(mean=mean(rG,na.rm=TRUE),se=sd(rG,na.rm=TRUE)/sqrt(length(rG[!is.na(rG)])),converged=length(rG[!is.na(rG)])),by='data']
@@ -69,7 +69,7 @@ xtable(tab2)
 
 a <- ggplot(res, aes(x=rG,y=min.h2,col=max.h2)) + geom_point() +
   coord_cartesian(xlim=c(-1,1)) + facet_wrap(~pop)  + 
-  theme_bw(14) +  labs(col=expression(paste("max ",h^2)),y=expression(paste("min ", h^2)),title="A") + 
+  theme_bw(12) +  labs(col=expression(paste("max ",h^2)),y=expression(paste("min ", h^2)),title="A") + 
   theme(legend.justification=c(0,1), legend.position=c(0.005,0.995),legend.title = element_text(size=8),legend.text = element_text(size=8),legend.key.size = unit(0.2, "cm"))
 
 
@@ -97,7 +97,7 @@ colnames(toplot) <- c("pop", "h2", "mean_rG")
 
 b <- ggplot(toplot, aes(x=h2,y=mean_rG,col=pop)) + geom_smooth() + scale_color_viridis(discrete=TRUE) +
   labs(x=expression(paste(h^2, " threshold in AFA")),y="mean rG",col="pop pair",title="B") +
-  theme_bw(14)
+  theme_bw(12)
 ```
 
 ```{r, fig.width=8,fig.height=10}
@@ -105,7 +105,7 @@ grid.arrange(a,b,c,nrow=3)
 ```
 
 ```{r}
-tiff("Fig2.tiff", width = 8, height = 10, units = 'in', res = 300, compression = 'lzw')
+tiff("Fig2.tiff", width = 17, height = 21.2, units = 'cm', res = 300, compression = 'lzw')
 grid.arrange(a,b,c,nrow=3)
 dev.off()
 ```

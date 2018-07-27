@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ### R code for Figures in Mogil et al. "Genetic architecture of gene expression traits across diverse populations" <https://doi.org/10.1101/245761>
-- Revision 1, submitted June 1, 2018
+- Final Formatting for PLOS Genetics
 
 ```{r}
 library(dplyr)
@@ -39,10 +39,10 @@ res_gr <- mutate(res_g, disc_pop=factor(disc_pop,levels=c('AFA','CAU','HIS','AFH
 res_g3 <- dplyr::filter(res_gr, disc_pop != 'AFHI' & disc_pop != 'ALL')
 
 fig <- ggplot(res_g3, aes(x=nk,y=pi1,col=rep_pop)) + geom_line() + geom_point() + facet_wrap(~disc_pop) +
-  scale_color_viridis(discrete = TRUE) + theme_bw(14) + labs(x="Number of Peer Factors",y=expression(pi[1]),col="Replication\nPopulation")
+  scale_color_viridis(discrete = TRUE) + theme_bw(12) + labs(x="Number of Peer Factors",y=expression(pi[1]),col="Replication\nPopulation")
 print(fig)
 
-tiff("Fig1.tiff", width = 8, height = 3, units = 'in', res = 300, compression = 'lzw')
+tiff("Fig1.tiff", width = 19, height = 7.1, units = 'cm', res = 300, compression = 'lzw')
 fig
 dev.off()
 ```

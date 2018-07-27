@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ### R code for Figures in Mogil et al. "Genetic architecture of gene expression traits across diverse populations" <https://doi.org/10.1101/245761>
-- Revision 1, submitted June 1, 2018
+- Final Formatting for PLOS Genetics
 - Figure 5
 
 ```{r}
@@ -27,13 +27,13 @@ pi1 <- fread('/home/lauren/files_for_revisions_plosgen/metaxcan_asthma/Figure_5_
 pi1 <- mutate(pi1, disc=factor(disc,levels=c('AFA','CAU','HIS','AFHI','ALL')))
 
 fig <- ggplot(pi1, aes(x=threshold,y=pi1,col=rep)) + geom_line() + geom_point() + facet_wrap(~disc,nrow=1) +
-  scale_color_viridis(discrete = TRUE) + theme_bw(14) + labs(x=expression(paste(R^2, ' threshold')),y=expression(pi[1]),col="Replication\nPopulation") + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  scale_color_viridis(discrete = TRUE) + theme_bw(12) + labs(x=expression(paste(R^2, ' threshold')),y=expression(pi[1]),col="Replication\nPopulation") + theme(axis.text.x = element_text(angle = 90, hjust = 1))
 print(fig)
 ```
 
 
 ```{r}
-tiff("Fig5.tiff", width = 10, height = 3, units = 'in', res = 300, compression = 'lzw')
+tiff("Fig5.tiff", width = 19, height = 5.7, units = 'cm', res = 300, compression = 'lzw')
 fig
 dev.off()
 ```
