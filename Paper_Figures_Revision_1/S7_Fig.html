@@ -120,7 +120,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">S7 Fig.</h1>
 <h4 class="author"><em>Heather Wheeler</em></h4>
-<h4 class="date"><em>2018-07-27 13:33:52</em></h4>
+<h4 class="date"><em>2018-08-13 10:41:27</em></h4>
 
 </div>
 
@@ -498,7 +498,12 @@ down_c &lt;- mutate(down_hc,allsample=pop2,downsample=CAU_dw,p='CAU') %&gt;%
   select(allsample, downsample, p)
 down_hc &lt;- rbind(down_h, down_c)
 
-s7a &lt;- ggplot(down_hc, aes(x=downsample,y=allsample)) + geom_point(shape=1) + facet_wrap(~p) + geom_abline(slope=1,intercept=0,col='blue') +
+dt_down_hc &lt;- data.table(down_hc)
+dt_down_hc[,list(R=cor(allsample,downsample,use='p',method='s')),by=p]</code></pre>
+<pre><code>##      p         R
+## 1: HIS 0.8334101
+## 2: CAU 0.8063306</code></pre>
+<pre class="r"><code>s7a &lt;- ggplot(down_hc, aes(x=downsample,y=allsample)) + geom_point(shape=1) + facet_wrap(~p) + geom_abline(slope=1,intercept=0,col='blue') +
   theme_bw(12) + labs(title='A',x=expression(paste('Downsampled ', R^2, ' (n = 233)')),
   y=expression(paste('Full sample ', R^2)))
 
@@ -508,7 +513,13 @@ dw_hc &lt;- dplyr::mutate(down,pop1=HIS_dw,pop2=CAU_dw,pop=&quot;HIS-CAU&quot;) 
 
 
 suball_nof_dw &lt;- rbind(dw_ac,dw_ah,dw_hc)
-s7b &lt;- ggplot(suball_nof_dw, aes(x=pop1,y=pop2)) + geom_point(shape=1) + geom_abline(slope=1,intercept=0,col='blue') + facet_wrap(~pop,nrow=1) + theme_bw(12)+
+dt_suball_nof_dw &lt;- data.table(suball_nof_dw)
+dt_suball_nof_dw[,list(R=cor(pop1,pop2,use='p',method='s')),by=pop]</code></pre>
+<pre><code>##        pop         R
+## 1: AFA-CAU 0.5431695
+## 2: AFA-HIS 0.6130016
+## 3: HIS-CAU 0.6504947</code></pre>
+<pre class="r"><code>s7b &lt;- ggplot(suball_nof_dw, aes(x=pop1,y=pop2)) + geom_point(shape=1) + geom_abline(slope=1,intercept=0,col='blue') + facet_wrap(~pop,nrow=1) + theme_bw(12)+
   labs(x=expression(paste(&quot;Population 1 &quot;, R^2)),y=expression(paste(&quot;Populaton 2 &quot;, R^2)),title='B') </code></pre>
 </div>
 <div id="s7-fig" class="section level2">

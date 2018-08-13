@@ -235,6 +235,8 @@ down_c <- mutate(down_hc,allsample=pop2,downsample=CAU_dw,p='CAU') %>%
   select(allsample, downsample, p)
 down_hc <- rbind(down_h, down_c)
 
+dt_down_hc <- data.table(down_hc)
+dt_down_hc[,list(R=cor(allsample,downsample,use='p',method='s')),by=p]
 s7a <- ggplot(down_hc, aes(x=downsample,y=allsample)) + geom_point(shape=1) + facet_wrap(~p) + geom_abline(slope=1,intercept=0,col='blue') +
   theme_bw(12) + labs(title='A',x=expression(paste('Downsampled ', R^2, ' (n = 233)')),
   y=expression(paste('Full sample ', R^2)))
@@ -245,6 +247,8 @@ dw_hc <- dplyr::mutate(down,pop1=HIS_dw,pop2=CAU_dw,pop="HIS-CAU") %>% select(po
 
 
 suball_nof_dw <- rbind(dw_ac,dw_ah,dw_hc)
+dt_suball_nof_dw <- data.table(suball_nof_dw)
+dt_suball_nof_dw[,list(R=cor(pop1,pop2,use='p',method='s')),by=pop]
 s7b <- ggplot(suball_nof_dw, aes(x=pop1,y=pop2)) + geom_point(shape=1) + geom_abline(slope=1,intercept=0,col='blue') + facet_wrap(~pop,nrow=1) + theme_bw(12)+
   labs(x=expression(paste("Population 1 ", R^2)),y=expression(paste("Populaton 2 ", R^2)),title='B') 
 
