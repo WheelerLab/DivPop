@@ -19,7 +19,7 @@ sqlite> .quit
 
 ### cis-eQTL summary statistics can be found [here](https://www.dropbox.com/sh/f6un5evevyvvyl9/AAA3sfa1DgqY67tx4q36P341a?dl=0).
 
-### For more details, see our [*BioRxiv* preprint](https://doi.org/10.1101/245761):
+### For more details, see our [*PLOS Genetics* paper](https://doi.org/10.1371/journal.pgen.1007586):
 **Genetic architecture of gene expression traits across diverse populations**
 
 Lauren S Mogil, Angela Andaleon, Alexa Badalamenti, Scott P Dickinson, Xiuqing Guo, Jerome I Rotter, W. Craig Johnson, Hae Kyung Im, Yongmei Liu, Heather E Wheeler
